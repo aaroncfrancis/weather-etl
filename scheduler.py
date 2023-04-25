@@ -4,7 +4,7 @@ import os
 
 def run_main_py():
     # Replace the file path below with the actual file path of your main.py script
-    file_path = r'C:\Users\aaron\Documents\GitHub\weather-etl\main.py'
+    file_path = 'main.py'
     os.system(f'python {file_path}')
 
 # Scheduling the main.py script to run every hour
