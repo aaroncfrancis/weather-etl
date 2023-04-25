@@ -4,10 +4,6 @@ import datetime as dt
 from creds import API_KEY
 
 BASE_URL = "http://api.openweathermap.org/data/2.5/weather"
-CITY_NAME = "Montreal"
-COUNTRY_CODE = "CA"
-
-
 
 def extract_weather_data(CITY_NAME: str, COUNTRY_CODE: str) -> pd.DataFrame:  #type hinting
     url = f"{BASE_URL}?q={CITY_NAME},{COUNTRY_CODE}&appid={API_KEY}"
