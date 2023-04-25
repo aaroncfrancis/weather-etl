@@ -1,1 +1,2 @@
 PASSWORD = 'zeldax46'
+API_KEY = '9e8368e34a0fdef45e613cc1132e71da'
