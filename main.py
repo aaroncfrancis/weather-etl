@@ -1,20 +1,24 @@
 from extract import extract_weather_data
-from transformers import add_temperature_units
+from transformers import transform
 from load import load_to_demo
+from cities import list_of_cities
+import pandas as pd
 
-CITY_NAME = input('Input City Name: ')
-COUNTRY_CODE = input('Input Country Code: ')
+df = pd.DataFrame()
 
-# extract
-raw_df = extract_weather_data(CITY_NAME, COUNTRY_CODE)
+for city in list_of_cities:
+    CITY_NAME, COUNTRY_CODE = city[0], city[1]
 
-# transformers
-transformed_df = add_temperature_units(raw_df)
+    # extract
+    raw_df = extract_weather_data(CITY_NAME, COUNTRY_CODE)
+    if raw_df is not None:
 
-print(transformed_df)
+        # transformers
+        transformed_df = transform(raw_df)
 
-# # load
-# load_to_demo(transformed_df,'weathertable', schema="schema1")
+        df = pd.concat([df, transformed_df])
 
+        # load
+        load_to_demo(transformed_df,'weather_data_all_cities', schema="schema1")
 
-list_of_cities = [1,1]
+print(df)

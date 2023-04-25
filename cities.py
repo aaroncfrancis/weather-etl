@@ -1,12 +1,9 @@
-from datapackage import Package
-import pandas as pd
+import csv
 
-package = Package('https://datahub.io/core/world-cities/datapackage.json')
+# Read data from CSV file
+with open('cities.csv', 'r') as csv_file:
+    csv_reader = csv.reader(csv_file)
+    list_of_cities = [row for row in csv_reader]
 
-# print list of all resources:
-print(package.resource_names)
-
-for resource in package.resources:
-    if resource.descriptor['datahub']['type'] == 'derived/csv':
-        f = open('cities.csv', 'w')
-        print(resource.read())
+# Display the list of lists
+print(list_of_cities)

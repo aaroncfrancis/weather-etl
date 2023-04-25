@@ -7,12 +7,11 @@ BASE_URL = "http://api.openweathermap.org/data/2.5/weather"
 
 def extract_weather_data(CITY_NAME: str, COUNTRY_CODE: str) -> pd.DataFrame:  #type hinting
     url = f"{BASE_URL}?q={CITY_NAME},{COUNTRY_CODE}&appid={API_KEY}"
-    response = requests.get(url)
-
-    # Check if the request was successful
-    if response.status_code == 200:
-
-        # Parse response as JSON
+    
+    try: 
+        # Check if the request was successful
+        response = requests.get(url)
+        response.raise_for_status()  # Raise an exception if HTTP error occurs
         data = response.json()
 
         # Extract relevant weather information
@@ -21,21 +20,24 @@ def extract_weather_data(CITY_NAME: str, COUNTRY_CODE: str) -> pd.DataFrame:  #t
         humidity = data['main']['humidity']
         wind_speed = data['wind']['speed']
 
-        # Print weather information
-        print(f"Weather description: {weather_description}")
-        print(f"Temperature: {temperature} K")
-        print(f"Humidity: {humidity}%")
-        print(f"Wind speed: {wind_speed} m/s")
+        # # Print weather information
+        # print(f"Weather description: {weather_description}")
+        # print(f"Temperature: {temperature} K")
+        # print(f"Humidity: {humidity}%")
+        # print(f"Wind speed: {wind_speed} m/s")
 
         # Convert data to pandas dataframe
         weather_data = pd.DataFrame({
-            'Weather Description': [weather_description],
-            'Temperature (K)': [temperature],
-            'Humidity (%)': [humidity],
-            'Wind Speed (m/s)': [wind_speed]
+            'city_name': [CITY_NAME],
+            'country_code': [COUNTRY_CODE],
+            'weather_description': [weather_description],
+            'temperature_(k)': [temperature],
+            'humidity_(%)': [humidity],
+            'wind_speed_(m/s)': [wind_speed]
         })
 
         return weather_data
-
-    else:
-        print("Failed to fetch weather data.")
+    
+    except requests.exceptions.HTTPError as err:
+        print(f"HTTP error occurred: {CITY_NAME}", err)
+        return None
