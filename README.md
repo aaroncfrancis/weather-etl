@@ -33,7 +33,6 @@ Install the necessary Python libraries using pip or conda, including pandas, req
 <li>
 Run the main.py file using a Python interpreter or setup the scheduler.py with your own local file path. I recommend simply running main.py for your ease of use.
 </li>
-<li>
 </ol>
 
 <h2>Conclusion</h2>
