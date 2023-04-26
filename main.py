@@ -18,7 +18,7 @@ for city in list_of_cities:
 
         df = pd.concat([df, transformed_df])
 
-        # load
-        load_to_demo(transformed_df,'weather_data_all_cities', schema="schema1")
+# load
+load_to_demo(df,'weather_data_all_cities', schema="schema1")
 
 print(df)
